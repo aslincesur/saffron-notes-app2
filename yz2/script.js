@@ -243,25 +243,34 @@ const emailInput = document.getElementById('emailInput');
 const skipLoginBtn = document.getElementById('skipLoginBtn');
 
 function hideLoginOverlay() {
-    loginOverlay.classList.remove('active');
+    if (loginOverlay) {
+        loginOverlay.classList.remove('active');
+    }
 }
 
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault(); // Prevent page reload
-    // Update sidebar UI with the logged-in email
-    const email = emailInput.value;
-    const nameFromEmail = email.split('@')[0];
-    userNameDisplay.innerText = nameFromEmail;
-    settingsNameInput.value = nameFromEmail;
-    userStatus.innerText = 'Synced';
-    userStatus.style.color = 'var(--sage-green)';
-    loginBtn.innerText = 'Log Out';
-    hideLoginOverlay();
-});
+// Ensure events are attached
+if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault(); // Prevent page reload
+        // Update sidebar UI with the logged-in email
+        const email = emailInput.value;
+        const nameFromEmail = email.split('@')[0];
+        userNameDisplay.innerText = nameFromEmail;
+        settingsNameInput.value = nameFromEmail;
+        userStatus.innerText = 'Synced';
+        userStatus.style.color = 'var(--sage-green)';
+        loginBtn.innerText = 'Log Out';
+        hideLoginOverlay();
+    });
+}
 
-skipLoginBtn.addEventListener('click', () => {
-    hideLoginOverlay();
-});
+if (skipLoginBtn) {
+    skipLoginBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        hideLoginOverlay();
+    });
+}
 
 // Category Click Mock
 document.querySelectorAll('.category-card').forEach(card => {
