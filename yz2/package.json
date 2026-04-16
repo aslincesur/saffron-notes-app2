@@ -1,0 +1,14 @@
+{
+  "name": "saffron-notes-app",
+  "version": "1.0.0",
+  "description": "Minimalist note app with AI",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.0",
+    "dotenv": "^16.4.0",
+    "cors": "^2.8.5"
+  }
+}
