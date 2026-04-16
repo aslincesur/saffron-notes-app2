@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MinimalNote - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Ionicons for some icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar (Frosted Glass) -->
+        <aside class="sidebar glass-effect">
+            <div class="logo">
+                <ion-icon name="leaf-outline"></ion-icon>
+                <span>SaffronNotes</span>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="#" class="active" id="navDashboard"><ion-icon name="grid-outline"></ion-icon> Dashboard</a>
+                <a href="#" id="navCategories"><ion-icon name="folder-outline"></ion-icon> Note Categories</a>
+                <a href="#" id="navSettings"><ion-icon name="settings-outline"></ion-icon> Settings</a>
+            </nav>
+
+            <div class="weather-widget" id="weatherWidget">
+                <ion-icon name="cloud-outline"></ion-icon> <span>Hava yükleniyor...</span>
+            </div>
+
+            <div class="login-panel">
+                <div class="user-info">
+                    <div class="avatar">
+                        <ion-icon name="person-outline"></ion-icon>
+                    </div>
+                    <div>
+                        <p class="user-name">Guest User</p>
+                        <p class="user-status">Not Logged In</p>
+                    </div>
+                </div>
+                <button class="btn btn-login" id="loginBtn">Login to Sync</button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="search-container">
+                    <ion-icon name="search-outline"></ion-icon>
+                    <input type="text" id="searchInput" placeholder="Search your notes...">
+                </div>
+                
+                <button class="btn btn-primary" id="addNoteBtn">
+                    <ion-icon name="add-outline"></ion-icon> Add New Note
+                </button>
+            </header>
+
+            <div class="workspace" id="dashboardView">
+                <div class="workspace-header">
+                    <h1>Your Notes</h1>
+                    <div class="filter-options" id="filterOptions">
+                        <span class="active" data-filter="all">All</span>
+                        <span data-filter="recent">Recent</span>
+                        <span data-filter="favorites">Favorites</span>
+                    </div>
+                </div>
+
+                <div class="notes-grid" id="notesGrid">
+                    <!-- Note items dynamically injected here -->
+                </div>
+            </div>
+
+            <!-- Categories View (New) -->
+            <div class="workspace" id="categoriesView" style="display: none;">
+                <div class="workspace-header">
+                    <h1>Note Categories</h1>
+                </div>
+                <div class="notes-grid">
+                    <div class="note-card category-card" style="align-items: center; justify-content: center; text-align: center;">
+                        <ion-icon name="briefcase-outline" style="font-size: 2.5rem; color: var(--sage-green); margin-bottom: 10px;"></ion-icon>
+                        <h3 style="margin-bottom: 5px;">Work</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">12 Notes</p>
+                    </div>
+                    <div class="note-card category-card" style="align-items: center; justify-content: center; text-align: center;">
+                        <ion-icon name="person-outline" style="font-size: 2.5rem; color: var(--saffron); margin-bottom: 10px;"></ion-icon>
+                        <h3 style="margin-bottom: 5px;">Personal</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">8 Notes</p>
+                    </div>
+                    <div class="note-card category-card" style="align-items: center; justify-content: center; text-align: center;">
+                        <ion-icon name="bulb-outline" style="font-size: 2.5rem; color: var(--cinnamon); margin-bottom: 10px;"></ion-icon>
+                        <h3 style="margin-bottom: 5px;">Ideas & Inspiration</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">5 Notes</p>
+                    </div>
+                    <div class="note-card category-card" id="addCategoryBtn" style="align-items: center; justify-content: center; text-align: center; border: 2px dashed rgba(0,0,0,0.1); background: transparent; box-shadow: none;">
+                        <ion-icon name="add-outline" style="font-size: 2rem; color: var(--text-muted);"></ion-icon>
+                        <h3 style="margin-top: 10px; color: var(--text-muted);">Add Category</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings View (New) -->
+            <div class="workspace" id="settingsView" style="display: none;">
+                <div class="workspace-header">
+                    <h1>Settings</h1>
+                </div>
+                <div class="settings-card">
+                    <h3 style="margin-bottom: 1rem;">Profile Settings</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Manage your account details and preferences.</p>
+                    <div class="input-group" style="max-width: 400px;">
+                        <label>Display Name</label>
+                        <input type="text" id="settingsNameInput" value="Guest User">
+                    </div>
+                    <div class="input-group" style="max-width: 400px;">
+                        <label>Email Preferences</label>
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <input type="checkbox" id="emailNotif" checked style="width: auto;"> 
+                            <label for="emailNotif" style="display: inline; margin: 0; font-weight: normal; color: var(--text-main);">Receive weekly summaries</label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" id="saveSettingsBtn" style="margin-top: 1rem; width: fit-content;">Save Changes</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 3D Decorative elements (using CSS styling) -->
+    <div class="decor-circle decor-1"></div>
+    <div class="decor-circle decor-2"></div>
+
+    <!-- Login Overlay -->
+    <div class="login-overlay" id="loginOverlay">
+        <div class="login-modal glass-effect">
+            <div class="logo login-logo">
+                <ion-icon name="leaf-outline"></ion-icon>
+                <span>SaffronNotes</span>
+            </div>
+            <h2>Welcome Back</h2>
+            <p>Please enter your details to sign in.</p>
+            <form id="loginForm">
+                <div class="input-group">
+                    <label>Email Address</label>
+                    <input type="email" id="emailInput" placeholder="you@example.com" value="user@mail.com" required>
+                </div>
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" id="passwordInput" placeholder="••••••••" value="password123" required>
+                </div>
+                <button type="submit" class="btn btn-primary full-width">Sign In</button>
+            </form>
+            <button type="button" class="btn btn-login skip-btn" id="skipLoginBtn">Continue as Guest</button>
+        </div>
+    </div>
+    
+    <!-- Edit Note Modal -->
+    <div class="login-overlay" id="editNoteOverlay">
+        <div class="login-modal glass-effect" style="max-width: 600px; text-align: left;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                <h2 style="margin: 0;">Edit Note</h2>
+                <ion-icon name="close-outline" id="closeEditModalBtn" style="font-size: 1.8rem; cursor: pointer; color: var(--text-muted);"></ion-icon>
+            </div>
+            <div class="input-group">
+                <label>Note Title</label>
+                <input type="text" id="editNoteTitle" placeholder="Title">
+            </div>
+            <div class="input-group">
+                <label>Note Content</label>
+                <textarea id="editNoteContent" placeholder="Write your note here..."></textarea>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-top: 1rem;">
+                <button type="button" class="btn btn-login" id="deleteNoteBtn" style="width: auto; color: #e74c3c; border-color: rgba(231, 76, 60, 0.2);">
+                    <ion-icon name="trash-outline"></ion-icon> Delete
+                </button>
+                <button type="button" class="btn btn-primary" id="saveNoteBtn" style="width: auto;">
+                    <ion-icon name="save-outline"></ion-icon> Save Changes
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Chatbot Floating UI -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <!-- Chat Window -->
+        <div class="chat-window glass-effect" id="chatWindow">
+            <div class="chat-header">
+                <div>
+                    <h3 style="font-size: 1.1rem; margin: 0; color: var(--text-main);">Yaratıcı İlham Perisi</h3>
+                    <p style="font-size: 0.8rem; color: var(--sage-green); margin: 0;">Not Asistanın</p>
+                </div>
+                <ion-icon name="close-outline" id="closeChatBtn" style="cursor: pointer; font-size: 1.5rem; color: var(--text-muted);"></ion-icon>
+            </div>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Init message -->
+                <div class="message bot-message">
+                    Merhaba! Ben senin not alma ilham perinim. Yazacak taze bir fikir bulmaya, zihnini toparlamaya veya sadece sohbet etmeye ihtiyacın varsa buradayım. Bugün aklında neler var? ✨
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Bana bir şeyler yaz...">
+                <button id="sendChatBtn"><ion-icon name="send-outline"></ion-icon></button>
+            </div>
+        </div>
+
+        <!-- Chat Toggle Button -->
+        <button class="chatbot-btn" id="chatToggleBtn">
+            <ion-icon name="sparkles-outline"></ion-icon>
+        </button>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
