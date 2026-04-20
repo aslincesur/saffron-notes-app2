@@ -39,7 +39,7 @@ app.post('/api/chat', async (req, res) => {
         }
 
         // 2. URL'yi en güncel model ismiyle ve sıfır boşlukla oluştur
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-latest:generateContent?key=${apiKey}`;
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
         
         const response = await fetch(url, {
           method: "POST",
